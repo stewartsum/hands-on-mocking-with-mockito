@@ -44,6 +44,15 @@ public class RegistrationServiceTest {
 
   @Test
   void basicStubbing() {
+    Mockito.when(bannedUsersClient.isBanned("duke", new Address())).thenReturn(true);
+
+    System.out.println("duke".equals("duke")); // true
+    System.out.println(new Address().equals(new Address())); // true
+
+    System.out.println(bannedUsersClient.isBanned("duke", new Address())); // true
+    System.out.println(bannedUsersClient.isBanned("duke", null)); // false
+    System.out.println(bannedUsersClient.isBanned("mike", new Address())); // false
+    System.out.println(bannedUsersClient.isBanned("duke", new Address())); // true
   }
 
   @Test
