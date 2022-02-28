@@ -9,8 +9,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-// @RunWith(MockitoJUnitRunner.class)
-@ExtendWith(MockitoExtension.class)
+// @RunWith(MockitoJUnitRunner.class) // Junit 4
+@ExtendWith(MockitoExtension.class) // JUnit 5
 class RegistrationServiceV3Test {
 
   @Mock
@@ -24,5 +24,9 @@ class RegistrationServiceV3Test {
 
   @Test
   void shouldRegisterUnknownUser() {
+    System.out.println(userRepository.getClass()); // class de.rieckpil.courses.UserRepository$MockitoMock$1679342815
+    System.out.println(bannedUsersClient.getClass()); // class de.rieckpil.courses.BannedUsersClient
+
+    System.out.println(cut.toString()); // de.rieckpil.courses.RegistrationService@29b732a2
   }
 }
