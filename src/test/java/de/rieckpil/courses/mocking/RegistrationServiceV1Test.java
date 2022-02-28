@@ -15,6 +15,17 @@ class RegistrationServiceV1Test {
 
   @Test
   void shouldRegisterUnknownUser() {
+
+    UserRepository realUserRepository = new JpaUserRepository();
+
+    System.out.println(realUserRepository.toString()); // de.rieckpil.courses.JpaUserRepository@5fd9b663
+    System.out.println(realUserRepository.getClass()); // class de.rieckpil.courses.JpaUserRepository
+
+    System.out.println(userRepository.toString()); // Mock for UserRepository, hashCode: 1746578747
+    System.out.println(userRepository.getClass()); // class de.rieckpil.courses.UserRepository$MockitoMock$1281950327
+
+    System.out.println(bannedUsersClient.toString()); // Mock for BannedUsersClient, hashCode: 1008612116
+    System.out.println(bannedUsersClient.getClass()); // class de.rieckpil.courses.BannedUsersClient
   }
 
 }
