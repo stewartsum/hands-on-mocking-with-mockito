@@ -73,6 +73,12 @@ public class RegistrationServiceTest {
 
   @Test
   void basicStubbingUsageThrows() {
+    when(bannedUsersClient.isBanned(eq("duke"), any())).thenThrow(new RuntimeException("Remote system is down!"));
+
+    System.out.println(bannedUsersClient.isBanned("mike", null)); // false
+
+    assertThrows(RuntimeException.class, () ->
+      System.out.println(bannedUsersClient.isBanned("duke", new Address())));
   }
 
   @Test
