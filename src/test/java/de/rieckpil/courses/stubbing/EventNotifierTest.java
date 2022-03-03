@@ -21,6 +21,13 @@ class EventNotifierTest {
 
   @Test
   void voidMethodStubbing() {
+    Mockito
+      .doNothing()
+      .doThrow(new RuntimeException("Error"))
+      .when(eventNotifier).notifyNewUserCreation("duke");
+
+    eventNotifier.notifyNewUserCreation("duke");
+    assertThrows(RuntimeException.class, () -> eventNotifier.notifyNewUserCreation("duke"));
   }
 
   @Test
