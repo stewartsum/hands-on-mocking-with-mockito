@@ -93,6 +93,29 @@ public class RegistrationServiceTest {
 
   @Test
   void basicStubbingUsageThenAnswer() {
+    when(bannedUsersClient.isBanned(eq("duke"), any(Address.class))).thenAnswer(invocation -> {
+      String username = invocation.getArgument(0);
+      Address address = invocation.getArgument(1);
+      return username.contains("d") && address.getCity().contains("d");
+    });
+
+    Address address = new Address();
+    address.setCity("Berlin");
+
+    System.out.println(bannedUsersClient.isBanned("duke", address)); // false
+
+    Address addressTwo = new Address();
+    addressTwo.setCity("London");
+
+    System.out.println(bannedUsersClient.isBanned("duke", addressTwo)); // true
+
+    when(userRepository.save(any(User.class))).thenAnswer(invocation -> {
+      User user = invocation.getArgument(0);
+      user.setId(42L);
+      return user;
+    });
+
+    System.out.println(userRepository.save(new User()).getId()); // 42
   }
 
   @Test
