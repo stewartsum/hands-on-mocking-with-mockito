@@ -32,5 +32,11 @@ class EventNotifierTest {
 
   @Test
   void doReturnExample() {
+
+    // Mockito.when(bannedUsersClient.amountOfBannedAccounts()).thenReturn(42);
+
+    Mockito.doReturn(42).when(bannedUsersClient).amountOfBannedAccounts();
+
+    System.out.println(bannedUsersClient.amountOfBannedAccounts()); // 42
   }
 }
