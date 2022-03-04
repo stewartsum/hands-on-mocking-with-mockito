@@ -89,5 +89,29 @@ public class RegistrationServiceVerificationTest {
 
   @Test
   void argumentCaptorsWhenVerifying() {
+
+    when(bannedUsersClient.isBanned(eq("duke"), any(Address.class))).thenReturn(false);
+    when(userRepository.findByUsername("duke")).thenReturn(null);
+    when(userRepository.save(any(User.class))).thenReturn(new User());
+
+    User user = cut.registerUser("duke", Utils.createContactInformation());
+
+    assertNotNull(user);
+
+    Mockito.verify(userRepository).save(userArgumentCaptor.capture());
+    Mockito.verify(bannedUsersClient).isBanned(stringArgumentCaptor.capture(), addressArgumentCaptor.capture());
+
+    System.out.println(stringArgumentCaptor.getValue()); // duke
+    System.out.println(addressArgumentCaptor.getValue()); // de.rieckpil.courses.Address@bf114b37
+
+    User userToStore = userArgumentCaptor.getValue();
+
+    System.out.println(userToStore);
+    // User{id=null, username='duke', email='duke@myorg.io', createdAt=2022-03-04T01:46:22.619372}
+
+    assertNotNull(userToStore.getUsername());
+    assertNotNull(userToStore.getCreatedAt());
+    assertTrue(userToStore.getEmail().contains("@myorg.io"));
+    assertNull(userToStore.getId());
   }
 }
